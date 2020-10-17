@@ -1,19 +1,6 @@
 import sys, appdirs, os
 from appdirs import AppDirs
-
-class HelperFunctions():
-    # create empty file
-    def touch(self, path):
-        with open(path, 'a'):
-            os.utime(path, None)
-
-    # checks if session name exists, terminate program otherwise
-    def check_for_session_name(self, session_name):
-        if not session_name:
-            print('Session name not provided. You cannot use this method without passing a session name in the constructor')
-            sys.exit()
-
-Helpers = HelperFunctions()
+from Helpers import touch
 
 class App():
     def __init__(self, session_name=None):
@@ -35,7 +22,7 @@ class App():
         file = delimeter.join([self.file_storage, file_name])
 
         if not os.path.exists(file):
-            Helpers.touch(file)
+            touch(file)
 
     def ignore(self, ignored_app):
         print(f'We are about to ignore the app {ignored_app}')

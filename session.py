@@ -1,32 +1,6 @@
 import click
 from App import App
-
-def allow_only(allowables, locals):
-    allowable_count = 0
-    for a in allowables:
-        if a in locals:
-            allowable_count += 1
-    return len(locals) > 0 and allowable_count == len(locals)
-
-def clear_params(locals):
-    params = []
-
-    for v in locals:
-        # print(locals[v])
-        if not locals[v] is None and locals[v]:
-            params.append(v)
-
-    return params
-
-def return_set_variable(*args):
-    for i in args:
-        if i:
-            return i
-class Config(object):
-    def __init(self):
-        self.n = None
-
-pass_config = click.make_pass_decorator(Config, ensure=True)
+from Helpers import allow_only, clear_params, return_set_variable
 
 @click.command()
 @click.option('-s', 'store', default=None, type=click.STRING, help='Store a session')
