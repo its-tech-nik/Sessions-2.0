@@ -37,20 +37,13 @@ class App():
         if not os.path.exists(file):
             Helpers.touch(file)
 
-
     def ignore(self, ignored_app):
-        Helpers.check_for_session_name(self.session_name)
-
         print(f'We are about to ignore the app {ignored_app}')
 
     def store(self):
-        Helpers.check_for_session_name(self.session_name)
-
         print(f'We are about to store the session {self.session_name} in {self.file_storage}')
 
     def restore(self):
-        Helpers.check_for_session_name(self.session_name)
-
         print(f'We are about to restore the session {self.session_name}')
 
     def list_running_apps(self):
