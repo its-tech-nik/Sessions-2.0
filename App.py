@@ -1,11 +1,15 @@
 import sys, appdirs, os
 from appdirs import AppDirs
 from Helpers import touch
+from Browser import Browser
+from Software import Software
 
 class App():
     def __init__(self, session_name=None):
         self.session_name = session_name
         self.file_storage = AppDirs('Sessions').user_data_dir
+        self.browser = Browser(self.session_name)
+        self.software = Software(self.session_name)
 
         # create session directory
         if not os.path.exists(self.file_storage):
@@ -25,12 +29,18 @@ class App():
             touch(file)
 
     def ignore(self, ignored_app):
+        self.browser.ignore(ignored_app)
+        self.software.ignore(ignored_app)
         print(f'We are about to ignore the app {ignored_app}')
 
     def store(self):
+        self.browser.store()
+        self.software.store()
         print(f'We are about to store the session {self.session_name} in {self.file_storage}')
 
     def restore(self):
+        self.browser.restore()
+        self.software.restore()
         print(f'We are about to restore the session {self.session_name}')
 
     def list_running_apps(self):
@@ -38,5 +48,3 @@ class App():
 
     def list_active_sessions(self):
         print('We are about to list all the active sessions')
-
-    
