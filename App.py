@@ -1,4 +1,4 @@
-import sys, appdirs, os
+import sys, appdirs, os, clipboard
 from appdirs import AppDirs
 from Helpers import touch
 from Browser import Browser
@@ -31,17 +31,14 @@ class App():
     def ignore(self, ignored_app):
         self.browser.ignore(ignored_app)
         self.software.ignore(ignored_app)
-        print(f'We are about to ignore the app {ignored_app}')
 
     def store(self):
         self.browser.store()
-        self.software.store()
-        print(f'We are about to store the session {self.session_name} in {self.file_storage}')
+        # self.software.store()
 
     def restore(self):
         self.browser.restore()
         self.software.restore()
-        print(f'We are about to restore the session {self.session_name}')
 
     def list_running_apps(self):
         print('We are about to list all the running apps')

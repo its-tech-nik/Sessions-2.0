@@ -9,6 +9,7 @@ pipenv-setup = "*"
 [packages]
 click = "*"
 appdirs = "*"
+clipboard = "*"
 
 [requires]
 python_version = "3.8"
