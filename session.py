@@ -1,4 +1,5 @@
 import click
+from App import App
 
 def allow_only(allowables, locals):
     allowable_count = 0
@@ -37,19 +38,32 @@ def cli(store, restore, ignore, name, list_all_apps, list_sessions):
 
     if allow_only(['ignore', 'name'], params):
         # ignore files
-        print('IGNORE')
+        if not ignore or not name:
+            return
+        
+        app = App(name)
+        app.ignore(ignore)
+
     elif allow_only(['store'], params):
         # store a session
-        print('STORE')
+        app = App(store)
+        app.store()
+
     elif allow_only(['restore'], params):
         # restore a session
-        print('RESTORE')
+        app = App(restore)
+        app.restore()
+
     elif allow_only(['list_all_apps'], params):
         # show all running apps
-        print('LIST ALL APPS')
+        app = App()
+        app.list_running_apps()
+
     elif allow_only(['list_sessions'], params):
         # list all active sessions
-        print('LIST SESSIONS')
+        app = App()
+        app.list_active_sessions()
+        
     # elif allow_only(['d'], params):
     #     decouples storage of apps from browser
     #     pass
