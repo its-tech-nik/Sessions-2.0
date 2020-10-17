@@ -29,12 +29,11 @@ class App():
             touch(file)
 
     def ignore(self, ignored_app):
-        self.browser.ignore(ignored_app)
         self.software.ignore(ignored_app)
 
     def store(self):
         self.browser.store()
-        # self.software.store()
+        self.software.store()
 
     def restore(self):
         self.browser.restore()
