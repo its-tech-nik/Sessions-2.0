@@ -7,6 +7,16 @@ def allow_only(allowables, locals):
             allowable_count += 1
     return len(locals) > 0 and allowable_count == len(locals)
 
+def clear_params(locals):
+    params = []
+
+    for v in locals:
+        # print(locals[v])
+        if not locals[v] is None and locals[v]:
+            params.append(v)
+
+    return params
+
 class Config(object):
     def __init(self):
         self.n = None
@@ -18,15 +28,12 @@ pass_config = click.make_pass_decorator(Config, ensure=True)
 @click.option('-r', 'restore', default=None, type=click.STRING, help='Restore a session')
 @click.option('-i', 'ignore', default=None, type=click.STRING, help='Ignores from storing an app in a session')
 @click.option('-n', 'name', default=None, type=click.STRING, help='Used only with -i to specify a session name')
-@click.option('-ls', 'list_sessions', default=None, type=click.STRING, help='List all active sessions')
-@click.option('-a', 'list_all_apps', default=None, type=click.STRING, help='Display all running apps')
+@click.option('-a', 'list_all_apps', is_flag=True, help='Display all running apps')
+@click.option('-ls', 'list_sessions', is_flag=True, help='List all active sessions')
 # @click.option('-d', default=None, type=click.STRING, help='Decouples storage of apps from browser tabs')
-def cli(store, restore, ignore, name, list_sessions, list_all_apps):
-    f_params = [v for v in locals().keys() if not v == 'config']
-    params = []
-    for v in f_params:
-        if not locals()[v] is None:
-            params.append(v)
+def cli(store, restore, ignore, name, list_all_apps, list_sessions):
+
+    params = clear_params(locals())
 
     if allow_only(['ignore', 'name'], params):
         # ignore files
