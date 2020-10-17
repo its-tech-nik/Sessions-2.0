@@ -63,7 +63,7 @@ def cli(store, restore, ignore, name, list_all_apps, list_sessions):
         # list all active sessions
         app = App()
         app.list_active_sessions()
-        
+
     # elif allow_only(['d'], params):
     #     decouples storage of apps from browser
     #     pass

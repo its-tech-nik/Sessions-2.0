@@ -8,6 +8,7 @@ pipenv-setup = "*"
 
 [packages]
 click = "*"
+appdirs = "*"
 
 [requires]
 python_version = "3.8"
