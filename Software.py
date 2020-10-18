@@ -9,6 +9,7 @@ class Software(Entity):
         self.file = self.format_file_name(f'{self.session_name}-software.ses')
 
     def ignore(self, ignored_app):
+        # TODO: Create an error message for when an app does not exist in the installed apps
         if not ignored_app in self.running_apps():
             print('Error: This app is not running at the moment.')
             return
@@ -29,7 +30,6 @@ class Software(Entity):
     def store(self):
         print(f'Software: We are about to store the session {self.session_name} in {self.file_storage}')
         
-        # file = self.format_file_name(f'{self.session_name}-software.ses')
         ignored_apps = self.retrieve_ignored_apps()
 
 		# store all runing apps that are not ignored
@@ -37,6 +37,8 @@ class Software(Entity):
             for app in self.running_apps():
                 if not app in ignored_apps:
                     text_file.write(f'{app}\n')
+        
+        # TODO: close the apps
 
     def restore(self):
         print(f'Software: We are about to restore the session {self.session_name}')
