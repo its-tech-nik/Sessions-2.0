@@ -62,6 +62,21 @@ class Software(Entity):
 
     def list_active_sessions(self):
         print('Software: We are about to list all the active sessions')
+        active_sessions = self.active_sessions()
+
+        if len(active_sessions) == 0:
+            print('Active Sessions: (no active sessions)')
+            return
+
+        print('Active Sessions:')
+
+        for session in active_sessions:
+            print(session)
+
+    def active_sessions(self):
+        application_folder = os.listdir(self.file_storage)
+
+        return list(set([f.split('-')[0] for f in application_folder if f.endswith('.ses')]))
 
     def running_apps(self):
         user = getpass.getuser()

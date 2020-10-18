@@ -45,3 +45,4 @@ class App():
 
     def list_active_sessions(self):
         print('We are about to list all the active sessions')
+        self.software.list_active_sessions()
