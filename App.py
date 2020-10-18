@@ -41,6 +41,7 @@ class App():
 
     def list_running_apps(self):
         print('We are about to list all the running apps')
+        self.software.list_running_apps()
 
     def list_active_sessions(self):
         print('We are about to list all the active sessions')
