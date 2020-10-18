@@ -10,6 +10,7 @@ pipenv-setup = "*"
 click = "*"
 appdirs = "*"
 clipboard = "*"
+"session-2.0" = {editable = true, path = "."}
 
 [requires]
 python_version = "3.8"

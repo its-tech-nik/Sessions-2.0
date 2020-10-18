@@ -1,21 +1,19 @@
 # Sessions-2.0
-The improved sessions
+The improved sessions.
 
-# How to install the command
-- virtualenv venv
-- . venv/bin/activate
-- pip install --editable .
+# How to install the command with pipenv (can only be used when the environment is running)
+- pip install pipenv (if it is not already installed)
+- pipenv shell (if pipenv is not activated yet)
+- pipenv install -e .
 
 # How to use the command:
-sh session [options]  
-**Currently, if you want to use the command, you have to go inside the folder and follow the instructions from there. There is a ticket in the todos list to tackle this problem.**
-
+session [options]
 
 Options | What it does
 :--- | :---
 -**s** [session_name] | Stores a session with name [session_name]
 -**r** [session_name] | Restores a session with name [session_name]
--**i** [app_name] -**n** [session_name] | Ignores from storing an app in a session with name [app_name], when no [app_name] is provided lists all running apps
+-**i** [app_name] | Ignores from storing an app in a session with name [app_name]
 -**la** | Lists all active sessions
 -**a** | Displays all running apps
 -**d** | Decouples storage of apps from browser tabs  
