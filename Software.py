@@ -43,6 +43,15 @@ class Software(Entity):
     def restore(self):
         print(f'Software: We are about to restore the session {self.session_name}')
 
+        apps_to_be_loaded = list()
+
+        with open(self.file, 'r') as text_file:
+            for application in text_file:
+                apps_to_be_loaded.append(application.split('\n')[0] + '.app')
+
+        for app in apps_to_be_loaded:
+            os.system('open -a ' + app.replace(' ', '\\ '))
+
     def list_running_apps(self):
         print('Software: We are about to list all the running apps')
 

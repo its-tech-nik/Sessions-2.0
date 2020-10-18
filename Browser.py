@@ -16,13 +16,13 @@ class Browser(Entity):
 
         text_in_clipboard = clipboard.paste()
 
-        with open(self.file, "w") as text_file:
+        with open(self.file, 'w') as text_file:
             text_file.write(f'{text_in_clipboard}')
 
     def restore(self):
         print(f'Browser: We are about to restore the session {self.session_name}')
 
-        with open(self.file, "r") as text_file:
+        with open(self.file, 'r') as text_file:
             for l in text_file:
                 webbrowser.open(l.replace('\n', ''), new=2)
 
