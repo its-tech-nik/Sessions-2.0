@@ -5,7 +5,7 @@ from Helpers import allow_only, clear_params
 @click.command()
 @click.option('-s', 'store', default=None, type=click.STRING, help='Store a session')
 @click.option('-r', 'restore', default=None, type=click.STRING, help='Restore a session')
-@click.option('-i', 'ignore', default=None, type=click.STRING, help='Ignores apps from ever being stored in a session')
+@click.option('-i', 'ignore', default=None, type=click.STRING, help='Ignores apps from ever being stored in a session', multiple=True)
 # @click.option('-n', 'name', default=None, type=click.STRING, help='Used only with -i to specify a session name')
 @click.option('-a', 'list_all_apps', is_flag=True, help='Display all running apps')
 @click.option('-ls', 'list_sessions', is_flag=True, help='List all active sessions')
@@ -17,10 +17,6 @@ def cli(store, restore, ignore, list_all_apps, list_sessions):
     app = App(session_name)
 
     if allow_only(['ignore'], params):
-        # ignore files
-        # if not ignore or not name:
-        #     return
-        
         app.ignore(ignore)
 
     elif allow_only(['store'], params):

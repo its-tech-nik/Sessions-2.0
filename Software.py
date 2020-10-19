@@ -8,20 +8,23 @@ class Software(Entity):
         self.ignoreFile = self.format_file_name('sessions.ignore')
         self.file = self.format_file_name(f'{self.session_name}-software.ses')
 
-    def ignore(self, ignored_app):
+    def ignore(self, to_be_ignored_apps):
         # TODO: Create an error message for when an app does not exist in the installed apps
-        if not ignored_app in running_apps():
-            print('Error: This app is not running at the moment.')
-            self.list_running_apps()
-            print('Choose an app of the above to ignore')
-            return
+
+        for ignored_app in to_be_ignored_apps:
+            if not ignored_app in running_apps():
+                print('Error: This app is not running at the moment.')
+                self.list_running_apps()
+                print('Choose an app of the above to ignore')
+                return
 
         ignored_apps = self.retrieve_ignored_apps()
 
-        if ignored_app in ignored_apps:
-            ignored_apps.remove(ignored_app)
-        else:
-            ignored_apps.append(ignored_app)
+        for ignored_app in to_be_ignored_apps:
+            if ignored_app in ignored_apps:
+                ignored_apps.remove(ignored_app)
+            else:
+                ignored_apps.append(ignored_app)
 
         with open(self.ignoreFile, 'w') as text_file:
             for app in ignored_apps:
