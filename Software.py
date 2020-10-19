@@ -53,9 +53,16 @@ class Software(Entity):
 
     def list_running_apps(self):
         ignored_apps = self.retrieve_ignored_apps()
+        show_last = []
 
         for app in running_apps():
-            print(app, '(Ignored)' if app in ignored_apps else '')
+            if app in ignored_apps:
+                show_last.append(app)
+            else:
+                print(app)
+
+        for app in show_last:
+            print(app, '(Ignored)')
 
     def list_active_sessions(self):
         active_sessions = self.active_sessions()
