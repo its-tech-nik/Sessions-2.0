@@ -13,7 +13,7 @@ Options | What it does
 :--- | :---
 -**s** [session_name] | Stores a session with name [session_name]
 -**r** [session_name] | Restores a session with name [session_name]
--**i** [app_name] | Ignores from storing an app in a session with name [app_name]
+-**i** [app_name] -i [session_name] | Ignores from storing an app in a session with name [app_name]
 -**la** | Lists all active sessions
 -**a** | Displays all running apps
 -**d** | Decouples storage of apps from browser tabs  
