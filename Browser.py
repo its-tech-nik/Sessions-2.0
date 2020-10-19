@@ -1,4 +1,4 @@
-import clipboard, os, webbrowser
+import clipboard, os, webbrowser, sys
 from Entity import Entity
 
 class Browser(Entity):
@@ -10,7 +10,11 @@ class Browser(Entity):
     def store(self):
         if not self.clipboard_verified():
             print('Error: Not enough tabs found in the clipboard.')
-            return
+            print('Do you want to store only the software running? [Y/n]')
+            user_input = input()
+            if user_input.lower() == 'y':
+                return
+            sys.exit()
 
         text_in_clipboard = clipboard.paste()
 
