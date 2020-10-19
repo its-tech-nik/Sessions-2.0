@@ -6,17 +6,22 @@ from Helpers import allow_only, clear_params
 @click.option('-s', 'store', default=None, type=click.STRING, help='Store a session')
 @click.option('-r', 'restore', default=None, type=click.STRING, help='Restore a session')
 @click.option('-i', 'ignore', default=None, type=click.STRING, help='Ignores apps from ever being stored in a session', multiple=True)
-# @click.option('-n', 'name', default=None, type=click.STRING, help='Used only with -i to specify a session name')
+@click.option('-n', 'name', default=None, type=click.STRING, help='Used only with -i to specify a session name')
 @click.option('-a', 'list_all_apps', is_flag=True, help='Display all running apps')
 @click.option('-ls', 'list_sessions', is_flag=True, help='List all active sessions')
 # @click.option('-d', default=None, type=click.STRING, help='Decouples storage of apps from browser tabs')
-def cli(store, restore, ignore, list_all_apps, list_sessions):
+def cli(store, restore, ignore, name, list_all_apps, list_sessions):
     params = clear_params(locals())
-    session_name = store or restore
+    session_name = store or restore or name
+
+    print(session_name)
 
     app = App(session_name)
 
-    if allow_only(['ignore'], params):
+    if allow_only(['ignore', 'name'], params):
+        if not ignore or not name:
+            return
+
         app.ignore(ignore)
 
     elif allow_only(['store'], params):

@@ -19,7 +19,7 @@ class Software(Entity):
                 return
 
         ignored_apps = self.retrieve_ignored_apps()
-
+        
         for ignored_app in to_be_ignored_apps:
             if ignored_app in ignored_apps:
                 ignored_apps.remove(ignored_app)
