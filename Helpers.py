@@ -1,7 +1,7 @@
 import os, sys, subprocess
 import getpass
 
-DEV_MODE=True
+DEV_MODE=False
 
 # create empty file
 def touch(path):
