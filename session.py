@@ -1,6 +1,6 @@
 import click
 from App import App
-from Helpers import allow_only, clear_params, return_set_variable
+from Helpers import allow_only, clear_params
 
 @click.command()
 @click.option('-s', 'store', default=None, type=click.STRING, help='Store a session')
@@ -12,7 +12,7 @@ from Helpers import allow_only, clear_params, return_set_variable
 # @click.option('-d', default=None, type=click.STRING, help='Decouples storage of apps from browser tabs')
 def cli(store, restore, ignore, list_all_apps, list_sessions):
     params = clear_params(locals())
-    session_name = return_set_variable(store, restore)
+    session_name = store or restore
 
     app = App(session_name)
 

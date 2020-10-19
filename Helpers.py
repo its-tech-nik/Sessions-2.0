@@ -1,4 +1,7 @@
-import os
+import os, sys, subprocess
+import getpass
+
+DEV_MODE=False
 
 # create empty file
 def touch(path):
@@ -16,13 +19,38 @@ def clear_params(locals):
     params = []
 
     for v in locals:
-        # print(locals[v])
         if not locals[v] is None and locals[v]:
             params.append(v)
 
     return params
 
-def return_set_variable(*args):
-    for i in args:
-        if i:
-            return i
+def running_processes():
+    user = getpass.getuser()
+    command = f'ps aux|grep ^{user} | grep /Applications'
+    
+    output = subprocess.check_output(command, shell=True)
+
+    return str(output).split('\\n')
+
+def running_apps(specific_app=None):
+    processes = running_processes()
+    running_apps = []
+    
+    for line in processes:
+        x = line[line.find('/Applications'):]
+        y = x[:x.find('.app')]
+        z = y[y.rfind('/')+1:]
+        if specific_app and specific_app in line:
+            return z
+        if not z in running_apps and z != '' and z != 'Application':
+            running_apps.append(z)
+
+    return running_apps
+
+def running_from():
+    app = running_apps(str(subprocess.check_output('echo $TERM_PROGRAM', shell=True).split()).split('\'')[1])
+
+    if type(app) == list:
+        return app[0]
+
+    return app

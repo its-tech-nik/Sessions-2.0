@@ -1,6 +1,6 @@
 from Entity import Entity
-import getpass
-import sys, subprocess, os
+import os
+from Helpers import DEV_MODE, running_from, running_apps
 
 class Software(Entity):
     def __init__(self, session_name):
@@ -10,7 +10,7 @@ class Software(Entity):
 
     def ignore(self, ignored_app):
         # TODO: Create an error message for when an app does not exist in the installed apps
-        if not ignored_app in self.running_apps():
+        if not ignored_app in running_apps():
             print('Error: This app is not running at the moment.')
             self.list_running_apps()
             print('Choose an app of the above to ignore')
@@ -32,11 +32,11 @@ class Software(Entity):
 
 		# store all runing apps that are not ignored
         with open(self.file, 'w') as text_file:
-            for app in self.running_apps():
+            for app in running_apps():
                 if not app in ignored_apps:
                     text_file.write(f'{app}\n')
         
-        # TODO: close the apps
+        self.close_apps()
 
     def restore(self):
         apps_to_be_loaded = list()
@@ -51,7 +51,7 @@ class Software(Entity):
     def list_running_apps(self):
         ignored_apps = self.retrieve_ignored_apps()
 
-        for app in self.running_apps():
+        for app in running_apps():
             print(app, '(Ignored)' if app in ignored_apps else '')
 
     def list_active_sessions(self):
@@ -71,22 +71,6 @@ class Software(Entity):
 
         return list(set([f.split('-')[0] for f in application_folder if f.endswith('.ses')]))
 
-    def running_apps(self):
-        user = getpass.getuser()
-        command = f'ps aux|grep ^{user} | grep /Applications'
-        
-        output = subprocess.check_output(command, shell=True)
-        running_apps = []
-        
-        for line in str(output).split('\\n'):
-            x = line[line.find('/Applications'):]
-            y = x[:x.find('.app')]
-            z = y[y.rfind('/')+1:]
-            if not z in running_apps and z != '' and z != 'Application':
-                running_apps.append(z)
-
-        return running_apps
-
     def retrieve_ignored_apps(self):
         ignored_apps = []
 
@@ -97,3 +81,24 @@ class Software(Entity):
         
         return ignored_apps
 
+    def close_apps(self):
+        print('Closing all apps')
+        
+        last_app = running_from()
+
+        with open(self.file, "r") as text_file:
+            for application in text_file:
+                application = application.split('\n')[0]
+                if not application == last_app:
+                    if not DEV_MODE:
+                        os.system('osascript -e \'quit app "{0}"\''.format(application + '.app'))
+                    else:
+                        print('osascript -e \'quit app "{0}"\''.format(application + '.app'))
+
+        print(f'Are you sure you want to terminate: {last_app}? [Y/n]')
+        user_input = input()
+        if user_input.lower() == 'y':
+            if not DEV_MODE:
+                os.system('osascript -e \'quit app "{0}"\''.format(last_app + '.app'))
+            else:
+                print('osascript -e \'quit app "{0}"\''.format(last_app + '.app'))
