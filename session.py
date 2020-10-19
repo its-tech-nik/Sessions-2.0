@@ -14,8 +14,6 @@ def cli(store, restore, ignore, name, list_all_apps, list_sessions):
     params = clear_params(locals())
     session_name = store or restore or name
 
-    print(session_name)
-
     app = App(session_name)
 
     if allow_only(['ignore', 'name'], params):
