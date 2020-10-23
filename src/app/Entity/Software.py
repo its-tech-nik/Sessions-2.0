@@ -5,7 +5,11 @@ from ..Helpers import DEV_MODE, running_from, running_apps
 class Software(Entity):
     def __init__(self, session_name):
         super().__init__(session_name)
-        self.ignoreFile = self.format_file_name('sessions.ignore')
+        self.ignoreFile = self.format_file_name('.ignore')
+        
+        if not session_name:
+            return
+
         self.file = self.format_file_name(f'{self.session_name}-software.ses')
 
     def ignore(self, to_be_ignored_apps):
@@ -91,6 +95,16 @@ class Software(Entity):
         
         return ignored_apps
 
+    def show_only_apps_not_ignored(self):
+        apps_to_be_ignored = self.retrieve_ignored_apps()
+
+        formatted_string = []
+
+        for app in running_apps():
+            if not app in apps_to_be_ignored:
+                formatted_string.append(app)
+        return formatted_string
+    
     def close_apps(self):
         print('Closing all apps')
         

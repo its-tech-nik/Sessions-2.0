@@ -11,6 +11,9 @@ class App():
         self.browser = Browser(self.session_name)
         self.software = Software(self.session_name)
 
+        if not session_name:
+            return
+
         # create session directory
         if not os.path.exists(self.file_storage):
             os.mkdir(self.file_storage)
@@ -46,3 +49,7 @@ class App():
     def list_active_sessions(self):
         print('We are about to list all the active sessions')
         self.software.list_active_sessions()
+
+    def show_only_apps_not_ignored(self):
+        return self.software.show_only_apps_not_ignored()
+        

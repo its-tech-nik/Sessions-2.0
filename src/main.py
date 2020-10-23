@@ -2,10 +2,16 @@ import click
 from .app import App
 from .app.Helpers import allow_only, clear_params
 
+def get_app_not_ignored(ctx, args, incomplete):
+
+    app = App()
+
+    return [c for c in app.show_only_apps_not_ignored() if incomplete in c[0]]
+
 @click.command()
 @click.option('-s', 'store', default=None, type=click.STRING, help='Store a session')
 @click.option('-r', 'restore', default=None, type=click.STRING, help='Restore a session')
-@click.option('-i', 'ignore', default=None, type=click.STRING, help='Ignores apps from ever being stored in a session', multiple=True)
+@click.option('-i', 'ignore', default=None, type=click.STRING, help='Ignores apps from ever being stored in a session', multiple=True, autocompletion=get_app_not_ignored)
 @click.option('-n', 'name', default=None, type=click.STRING, help='Used only with -i to specify a session name')
 @click.option('-a', 'list_all_apps', is_flag=True, help='Display all running apps')
 @click.option('-ls', 'list_sessions', is_flag=True, help='List all active sessions')
@@ -37,7 +43,6 @@ def cli(store, restore, ignore, name, list_all_apps, list_sessions):
     elif allow_only(['list_sessions'], params):
         # list all active sessions
         app1.list_active_sessions()
-
     # elif allow_only(['d'], params):
     #     decouples storage of apps from browser
     #     pass
