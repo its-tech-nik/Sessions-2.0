@@ -6,6 +6,6 @@ setup(
     install_requires=["click", "appdirs", "clipboard"],
     entry_points="""
         [console_scripts]
-        session=session:cli
+        session=src.main:cli
     """,
 )

@@ -1,6 +1,6 @@
-from Entity import Entity
+from .Entity import Entity
 import os
-from Helpers import DEV_MODE, running_from, running_apps
+from ..Helpers import DEV_MODE, running_from, running_apps
 
 class Software(Entity):
     def __init__(self, session_name):

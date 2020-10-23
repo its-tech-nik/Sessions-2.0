@@ -1,5 +1,5 @@
 import clipboard, os, webbrowser, sys
-from Entity import Entity
+from .Entity import Entity
 
 class Browser(Entity):
 

@@ -1,8 +1,8 @@
 import sys, appdirs, os, clipboard
 from appdirs import AppDirs
-from Helpers import touch
-from Browser import Browser
-from Software import Software
+from .Helpers import touch
+from .Entity import Browser
+from .Entity import Software
 
 class App():
     def __init__(self, session_name=None):

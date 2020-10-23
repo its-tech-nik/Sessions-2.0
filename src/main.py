@@ -1,6 +1,6 @@
 import click
-from App import App
-from Helpers import allow_only, clear_params
+from .app import App
+from .app.Helpers import allow_only, clear_params
 
 @click.command()
 @click.option('-s', 'store', default=None, type=click.STRING, help='Store a session')
@@ -14,29 +14,29 @@ def cli(store, restore, ignore, name, list_all_apps, list_sessions):
     params = clear_params(locals())
     session_name = store or restore or name
 
-    app = App(session_name)
+    app1 = App(session_name)
 
     if allow_only(['ignore', 'name'], params):
         if not ignore or not name:
             return
 
-        app.ignore(ignore)
+        app1.ignore(ignore)
 
     elif allow_only(['store'], params):
         # store a session
-        app.store()
+        app1.store()
 
     elif allow_only(['restore'], params):
         # restore a session
-        app.restore()
+        app1.restore()
 
     elif allow_only(['list_all_apps'], params):
         # show all running apps
-        app.list_running_apps()
+        app1.list_running_apps()
 
     elif allow_only(['list_sessions'], params):
         # list all active sessions
-        app.list_active_sessions()
+        app1.list_active_sessions()
 
     # elif allow_only(['d'], params):
     #     decouples storage of apps from browser
