@@ -19,7 +19,7 @@ class App():
             os.mkdir(self.file_storage)
         
         if self.session_name:
-            self.create_file('sessions.ignore')
+            self.create_file('.ignore')
             self.create_file(f'{self.session_name}-browser.ses')
             self.create_file(f'{self.session_name}-software.ses')
 
@@ -52,4 +52,6 @@ class App():
 
     def show_only_apps_not_ignored(self):
         return self.software.show_only_apps_not_ignored()
-        
+
+    def show_active_sessions(self):
+        return self.software.active_sessions()
