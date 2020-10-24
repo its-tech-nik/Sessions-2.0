@@ -11,7 +11,7 @@ def get_app_not_ignored(ctx, args, incomplete):
 def get_active_sessions(ctx, args, incomplete):
     app = App()
     active = app.show_active_sessions()
-    asdf = active if len(active) > 1 else ['No Active Sessions']
+    asdf = active if len(active) > 0 else ['No Active Sessions']
 
     return [c for c in asdf if incomplete in c[0]]
 
