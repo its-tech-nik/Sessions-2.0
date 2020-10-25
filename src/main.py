@@ -23,7 +23,6 @@ def get_active_sessions(ctx, args, incomplete):
 @click.option('-n', 'name', default=None, type=click.STRING, help='Used only with -i to specify a session name', autocompletion=get_active_sessions)
 @click.option('-a', 'list_all_apps', is_flag=True, help='Display all running apps')
 @click.option('-ls', 'list_sessions', is_flag=True, help='List all active sessions')
-# @click.option('-d', default=None, type=click.STRING, help='Decouples storage of apps from browser tabs')
 def cli(store, restore, ignore, name, list_all_apps, list_sessions):
     params = clear_params(locals())
     session_name = store or restore or name
@@ -51,8 +50,5 @@ def cli(store, restore, ignore, name, list_all_apps, list_sessions):
     elif allow_only(['list_sessions'], params):
         # list all active sessions
         app1.list_active_sessions()
-    # elif allow_only(['d'], params):
-    #     decouples storage of apps from browser
-    #     pass
     else:
         print('Wrong format. Please check your syntax')
