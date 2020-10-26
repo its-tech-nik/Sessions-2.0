@@ -14,7 +14,7 @@ class Software(Entity):
 
     def ignore(self, to_be_ignored_apps):
         # TODO: Create an error message for when an app does not exist in the installed apps
-
+        
         for ignored_app in to_be_ignored_apps:
             if not ignored_app in running_apps():
                 print('Error: This app is not running at the moment.')
@@ -57,16 +57,13 @@ class Software(Entity):
 
     def list_running_apps(self):
         ignored_apps = self.retrieve_ignored_apps()
-        show_last = []
+
+        for app in self.show_only_apps_not_ignored():
+            print(app)
 
         for app in running_apps():
             if app in ignored_apps:
-                show_last.append(app)
-            else:
-                print(app)
-
-        for app in show_last:
-            print(app, '(Ignored)')
+                print(app, '(Ignored)')
 
     def list_active_sessions(self):
         active_sessions = self.active_sessions()
