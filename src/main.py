@@ -24,6 +24,7 @@ def get_active_sessions(ctx, args, incomplete):
 @click.option('-a', 'list_all_apps', is_flag=True, help='Display all running apps')
 @click.option('-ls', 'list_sessions', is_flag=True, help='List all active sessions')
 def cli(store, restore, ignore, name, list_all_apps, list_sessions):
+
     params = clear_params(locals())
     session_name = store or restore or name
 

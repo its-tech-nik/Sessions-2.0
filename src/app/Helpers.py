@@ -1,5 +1,6 @@
-import os, sys, subprocess
+import os, sys, subprocess, urllib
 import getpass
+from AppKit import NSWorkspace
 
 DEV_MODE=False
 
@@ -32,9 +33,23 @@ def running_processes():
 
     return str(output).split('\\n')
 
+def clearURL(asdf):
+    return urllib.parse.unquote(str(asdf)).split('/')
+
+def get_login_items():
+    login_apps = subprocess.check_output(['osascript', '-e',
+                                    'tell application "System Events" to get the path of every login item']).decode('utf-8').split(',')
+    
+    login_apps = [clearURL(i.split('\n')[0])[-1] for i in login_apps]
+    login_apps = [clearURL(i.split('.app')[0])[-1] for i in login_apps]
+
+    return login_apps
+
 def running_apps(specific_app=None):
+
     processes = running_processes()
     running_apps = []
+    login_apps = get_login_items()
     
     for line in processes:
         x = line[line.find('/Applications'):]
@@ -42,7 +57,7 @@ def running_apps(specific_app=None):
         z = y[y.rfind('/')+1:]
         if specific_app and specific_app in line:
             return z
-        if not z in running_apps and z != '' and z != 'Application':
+        if not z in running_apps and z != '' and z != 'Application' and z not in login_apps:
             running_apps.append(z)
 
     return running_apps

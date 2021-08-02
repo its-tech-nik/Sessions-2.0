@@ -11,6 +11,7 @@ click = "*"
 appdirs = "*"
 clipboard = "*"
 "session-2.0" = {editable = true, path = "."}
+pyobjc-framework-cocoa = "*"
 
 [requires]
 python_version = "3.8"
